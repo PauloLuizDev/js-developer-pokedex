@@ -122,9 +122,9 @@
     text-align: center;
 }
 
-.pokemon .detail img {
+.pokemon img {
     max-width: 100%;
-    height: 70px;
+    height: 140px;
 }
 
 .pagination {

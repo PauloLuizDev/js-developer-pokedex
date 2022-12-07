@@ -1,26 +1,21 @@
 
 const pokeApi = {}
 
-function convertPokeApiDetailToPokemon(pokeDetail) {
-    const pokemon = new Pokemon()
-    pokemon.number = pokeDetail.id
-    pokemon.name = pokeDetail.name
+async function pokemonTo(response) {
+    console.log(response)
+    let pokemon = new Pokemon(response)
 
-    const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name)
-    const [type] = types
+    let busca = await fetch(response.species.url);
+    let userData = await busca.json();
+    pokemon.description = userData.flavor_text_entries[0].flavor_text;
 
-    pokemon.types = types
-    pokemon.type = type
 
-    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
-
-    return pokemon
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
         .then((response) => response.json())
-        .then(convertPokeApiDetailToPokemon)
+        .then((jsonBody) => pokemonTo(jsonBody))
 }
 
 pokeApi.getPokemons = (offset = 0, limit = 5) => {
