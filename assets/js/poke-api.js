@@ -9,7 +9,7 @@ async function pokemonTo(response) {
     let userData = await busca.json();
     pokemon.description = userData.flavor_text_entries[0].flavor_text;
 
-
+    return pokemon
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {
