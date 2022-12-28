@@ -5,9 +5,9 @@ class Pokemon {
   types = []; //outros possiveis tipos
   photo; //sprite do pokemon, 3 tipos disponiveis DreamWorld, Default e novo
   description; //Breve descrição do pokemon precisa de outra fetch para buscar
-  attacks = []; //lista de possiveis ataques
+  abilities = []; //lista de possiveis ataques
   statsNames = []; //abrvNames(pokemon.stats.name); //nome das estatisticas hp, attack, defense, specialAtack, specialDefense, speed implementar função para retornar abreviações
-  statsNumbers = []; //valor das estatisticas
+  //statsNumbers = []; valor das estatisticas
 
   constructor(response) {
 
@@ -25,32 +25,32 @@ class Pokemon {
 
     this.description = "";
 
-    this.attacks = response.moves.map((statSlot) => statSlot.move.name);
+    this.abilities = response.abilities.map((statSlot) => statSlot.ability.name) ;
 
     this.statsNames = response.stats.map((statSlot) => {
       switch (statSlot.stat.name) {
         case "hp":
-          return "HP";
+          return "HP: " + statSlot.base_stat;
         case "attack":
-          return "ATK";
+          return "ATK: " + statSlot.base_stat;
         case "defense":
-          return "DEF";
+          return "DEF: " + statSlot.base_stat;
         case "special-attack":
-          return "SAT";
+          return "SAT: " + statSlot.base_stat;
         case "special-defense":""
-          return "SDF";
+          return "SDF: " + statSlot.base_stat;
         case "speed":
-          return "SPD";
+          return "SPD: " + statSlot.base_stat;
         case "":
           return console.log("nome da estatistica vazio");
         default:
           return "statsName";
       }
     });
-
-    this.statsNumbers = response.stats.map((statSlot) => statSlot.base_stat);
-    console.log(this);
 /*  
+    this.statsNumbers = response.stats.map((statSlot) => statSlot.base_stat);
+    console.log(this); 
+
     async function getPokeDescription(response) { 
       return await fetch(response.species.url)
         .then((response) =>  response.json())

@@ -7,7 +7,7 @@ const limit = 10
 let offset = 0;
 
 function convertPokemonToLi(pokemon) {
-    return `
+  return `
     <div class="pokemon">
     <div class="card m-2">
       <button class="card-content ${pokemon.type}   border-0"  href="#" class="d-inline" data-bs-toggle="modal" data-bs-target="#${pokemon.name}">
@@ -16,12 +16,12 @@ function convertPokemonToLi(pokemon) {
             <div class="align-self-center">
               <span class=" float-left"><img src="${pokemon.photo}" alt="${pokemon.name}" class="card-img-top"></span>
             </div>
-            <div class="media-body text-white ps-2 container-fluid">
+            <div class="media-body text-white ps-2 container-fluid text-end">
               <h2 class="text-capitalize h6 ">${pokemon.name} </h2>
               <span >#${pokemon.number}</span>
               <div class="">
                 ${pokemon.types.map((type) => `<img src="./assets/icon/${type}.svg"
-                alt="${type}" class="icone p-1 m-0">`).join('')}
+                alt="${type}" class="icone ms-2 p-1 rounded-circle ${type}">`).join('')}
               </div>
             </div>
           </div>
@@ -35,30 +35,63 @@ function convertPokemonToLi(pokemon) {
     `
 }
 
-function  convertPokemonToDetails(pokemon){
+function convertPokemonToDetails(pokemon) {
   return `
   <div class="modal fade" id="${pokemon.name}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="card-content ${pokemon.type} p-2">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="">
-          <h2 class="text-capitalize h6 pt-5">${pokemon.name}</h2>
-          ${pokemon.types.map((type) => `<img src="./assets/icon/${type}.svg"
-          alt="${type}" class="icone p-1 m-0 rounded-circle ${pokemon.type}">`).join('')}
-        </div>
-        
-        </div>
-        <div class="modal-body">
-          <div class="align-self-center">
-            <span class=" float-left"><img src="${pokemon.photo}" alt="${pokemon.name}" class="card-img-top pse-2 mt-4"></span>
-          </div>
-          <span >#${pokemon.number}</span>
 
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
+    <div class="modal-dialog">
+      
+      <div class="card-content ${pokemon.type} p-2">
+        
+        <div class="modal-content">
+          
+          <div class="modal-header ">
+
+            <h2 class="text-capitalize display-5">
+            ${pokemon.name} ${pokemon.types.map((type) => `<img src="./assets/icon/${type}.svg"
+            alt="${type}" class="icone p-1 me-2 rounded-circle ${type} ">`).join('')}
+            </h2>
+
+          </div>
+        
+          </div>
+          <img src="${pokemon.photo}" alt="${pokemon.name}" class="card-img-top pse-2 mt-4">
+          <span class="text-white h3">
+          #${pokemon.number}
+          </span>
+          <div class="modal-body bg-white">
+          <p>${pokemon.description}</p>
+            <div class="row">
+            
+          
+           
+
+            
+            <ul class="list-group-flush col-4 text-center">
+            <li class="list-group-item mb-2"><span class="h5">Status</span></li>
+            ${pokemon.statsNames.map((stat) => `<li class="list-group-item ">${stat}</li>`).join('')}
+            </ul>
+
+            <ul class="list-group-flush col-4 text-center">
+            <li class="list-group-item mb-2"><span class="h5">Abilities</span></li>
+            ${pokemon.abilities.map((ability) => `<li class="list-group-item ">${ability}</li>`).join('')}
+            </ul>
+
+            <ul class="list-group-flush col-4 text-center">
+            <li class="list-group-item mb-2"><span class="h5">Abilities</span></li>
+            ${pokemon.abilities.map((ability) => `<li class="list-group-item ">${ability}</li>`).join('')}
+            </ul>
+
+            </div>
+          </div>
+
+          <div class="modal-footer bg-white">
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+            </button>
+
+          </div>
         </div>
       </div>
     </div>
@@ -88,15 +121,15 @@ function  convertPokemonToDetails(pokemon){
 </div>*/
 
 function loadPokemon(offset, limit) {
-    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-        const newHtml = pokemons.map(convertPokemonToLi).join('')
-        pokemonList.innerHTML += newHtml
-    })
+  pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+    const newHtml = pokemons.map(convertPokemonToLi).join('')
+    pokemonList.innerHTML += newHtml
+  })
 }
 function loadPokemonDetails(offset, limit) {
   pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-      const newHtml = pokemons.map(convertPokemonToDetails).join('')
-      pokemonList.innerHTML += newHtml
+    const newHtml = pokemons.map(convertPokemonToDetails).join('')
+    pokemonList.innerHTML += newHtml
   })
 }
 
@@ -104,19 +137,19 @@ loadPokemon(offset, limit)
 loadPokemonDetails(offset, limit)
 
 loadMoreButton.addEventListener('click', () => {
-    offset += limit
-    const qtdRecordsWithNexPage = offset + limit
+  offset += limit
+  const qtdRecordsWithNexPage = offset + limit
 
-    if (qtdRecordsWithNexPage >= maxRecords) {
-        const newLimit = maxRecords - offset
-        loadPokemon(offset, newLimit)
-        loadPokemonDetails(offset, limit)
+  if (qtdRecordsWithNexPage >= maxRecords) {
+    const newLimit = maxRecords - offset
+    loadPokemon(offset, newLimit)
+    loadPokemonDetails(offset, limit)
 
-        loadMoreButton.parentElement.removeChild(loadMoreButton)
-    } else {
-        loadPokemon(offset, limit)
-        loadPokemonDetails(offset, limit)
-    }
+    loadMoreButton.parentElement.removeChild(loadMoreButton)
+  } else {
+    loadPokemon(offset, limit)
+    loadPokemonDetails(offset, limit)
+  }
 })
 
 /*  Em LoadpokemonItens
