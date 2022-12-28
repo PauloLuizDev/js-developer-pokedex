@@ -8,8 +8,12 @@ async function pokemonTo(response) {
     let busca = await fetch(response.species.url);
     let userData = await busca.json();
     pokemon.description = userData.flavor_text_entries[0].flavor_text;
+    pokemon.habitat = userData.habitat.name;
+    pokemon.capture_rate = userData.capture_rate;
 
-    return pokemon
+    console.log(pokemon);
+
+    return pokemon;
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {

@@ -94,7 +94,9 @@
     max-height: 100px;
     max-width: 100px;
 }
-
+#range{
+    transform: rotateY(180deg);
+}
 .pagination {
     display: flex;
     flex-direction: row;

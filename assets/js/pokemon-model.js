@@ -8,6 +8,11 @@ class Pokemon {
   abilities = []; //lista de possiveis ataques
   statsNames = []; //abrvNames(pokemon.stats.name); //nome das estatisticas hp, attack, defense, specialAtack, specialDefense, speed implementar função para retornar abreviações
   //statsNumbers = []; valor das estatisticas
+  base_experience;
+  height;
+  weight;
+  habitat;//name
+  capture_rate;
 
   constructor(response) {
 
@@ -47,6 +52,12 @@ class Pokemon {
           return "statsName";
       }
     });
+
+    this.base_experience = response.base_experience;
+    this.height = response.height;
+    this.weight = response.weight;
+    this.habitat = "";
+    this.capture_rate = "";
 /*  
     this.statsNumbers = response.stats.map((statSlot) => statSlot.base_stat);
     console.log(this); 

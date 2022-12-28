@@ -60,12 +60,8 @@ function convertPokemonToDetails(pokemon) {
           #${pokemon.number}
           </span>
           <div class="modal-body bg-white">
-          <p>${pokemon.description}</p>
+          <p class="p-3">${pokemon.description}</p>
             <div class="row">
-            
-          
-           
-
             
             <ul class="list-group-flush col-4 text-center">
             <li class="list-group-item mb-2"><span class="h5">Status</span></li>
@@ -78,8 +74,12 @@ function convertPokemonToDetails(pokemon) {
             </ul>
 
             <ul class="list-group-flush col-4 text-center">
-            <li class="list-group-item mb-2"><span class="h5">Abilities</span></li>
-            ${pokemon.abilities.map((ability) => `<li class="list-group-item ">${ability}</li>`).join('')}
+            <li class="list-group-item mb-2"><span class="h5">Details</span></li>
+            <li class="list-group-item">Exp. ${pokemon.base_experience}</li>
+            <li class="list-group-item text-capitalize">Hab. ${pokemon.habitat}</li>
+            <li class="list-group-item">Capture Rate ${pokemon.capture_rate}/255</li>
+            <li class="list-group-item">Height. ${pokemon.height}</li>
+            <li class="list-group-item">Weight. ${pokemon.weight}</li>
             </ul>
 
             </div>
@@ -87,7 +87,7 @@ function convertPokemonToDetails(pokemon) {
 
           <div class="modal-footer bg-white">
 
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
             Close
             </button>
 
